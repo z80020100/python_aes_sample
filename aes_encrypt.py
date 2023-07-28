@@ -21,7 +21,7 @@ def main():
     data_hex_string = "48656C6C6F2C20576F726C6421"  # Hello, World!
     data = utils.hex_string_to_bytearray(data_hex_string)
     # Aligne data to block boundary
-    data = pad(data, aes_block_size_bytes, style='pkcs7')
+    data = pad(data, aes_block_size_bytes, style="pkcs7")
     print("Data:")
     utils.print_bytearray(data)
 

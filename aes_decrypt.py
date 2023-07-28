@@ -41,7 +41,7 @@ def main():
 
     cipher = AES.new(key, aes_mode)
     data = cipher.decrypt(ciphertext)
-    data = unpad(data, AES.block_size, style='pkcs7')
+    data = unpad(data, AES.block_size, style="pkcs7")
     utils.save_bytearray_to_file(data, PLAINTEXT_FILE_NAME)
     print("Data:")
     utils.print_bytearray(data)
