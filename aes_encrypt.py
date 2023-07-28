@@ -5,21 +5,23 @@ import os
 
 # PyPI
 from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
 
 # Custom
-from constant import BLOCK_SIZE, ENCRYPTED_FILE_NAME, KEY_FILE_NAME
+from constant import ENCRYPTED_FILE_NAME, KEY_FILE_NAME
 import utils
 
 
 def main():
     aes_mode = AES.MODE_ECB
+    aes_block_size_bytes = AES.block_size  # 16 bytes
     key_length_bits = 128
     print("AES-128-ECB encryption sample")
 
     data_hex_string = "48656C6C6F2C20576F726C6421"  # Hello, World!
     data = utils.hex_string_to_bytearray(data_hex_string)
     # Aligne data to block boundary
-    data = data + bytearray(BLOCK_SIZE - len(data) % BLOCK_SIZE)
+    data = pad(data, aes_block_size_bytes, style='pkcs7')
     print("Data:")
     utils.print_bytearray(data)
 
