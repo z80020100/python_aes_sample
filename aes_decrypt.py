@@ -6,9 +6,10 @@ import sys
 
 # PyPI
 from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
 
 # Custom
-from constant import BLOCK_SIZE, ENCRYPTED_FILE_NAME, KEY_FILE_NAME, PLAINTEXT_FILE_NAME
+from constant import ENCRYPTED_FILE_NAME, KEY_FILE_NAME, PLAINTEXT_FILE_NAME
 import utils
 
 
@@ -40,6 +41,7 @@ def main():
 
     cipher = AES.new(key, aes_mode)
     data = cipher.decrypt(ciphertext)
+    data = unpad(data, AES.block_size, style="pkcs7")
     utils.save_bytearray_to_file(data, PLAINTEXT_FILE_NAME)
     print("Data:")
     utils.print_bytearray(data)
